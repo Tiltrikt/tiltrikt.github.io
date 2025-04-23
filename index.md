@@ -7,13 +7,14 @@ description: Systémová príručka
 ## Table of Contents
 
 - **Server**
-    - [Getting Started](#getting-started)
-    - [Configuration](#configuration)
-    - [Exception Handling](#exception-handling)
-    - [Contextual Data / Scoped Beans](#contextual-data--scoped-beans)
-    - [Testing the Service](#testing-the-service)
-    - [Server Events](#server-events)
-    - [Security](#security)
+      - [Nasadenie](/deployment.md)
+      - [Getting Started](#getting-started)
+      - [Configuration](#configuration)
+      - [Exception Handling](#exception-handling)
+      - [Contextual Data / Scoped Beans](#contextual-data--scoped-beans)
+      - [Testing the Service](#testing-the-service)
+      - [Server Events](#server-events)
+      - [Security](#security)
 
 - **Client**
     - [Getting Started](#getting-started-client)
@@ -21,7 +22,7 @@ description: Systémová príručka
     - [Security](#security-client)
     - [Tests with Grpc-Stubs](#tests-with-grpc-stubs)
 
-- [Nasadenie](/deployment.md)
+
 - [Trouble-Shooting](#trouble-shooting)
 - [Example Projects](#example-projects)
 

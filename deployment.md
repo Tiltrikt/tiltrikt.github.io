@@ -3,12 +3,12 @@ layout: default
 title: Spôsob nasadenia
 ---
 
+[<-- Na hlavnú stránku](index.md)
+
 Vyhľadávacia služba Orion môže byť nasadená v jednoduchom režime alebo v režime replikácie v závislosti od vašich požiadaviek.
 
 ## Jednoduchý režim
 V tomto prípade sa používa jeden server brokera a jedna služba Orion, ktoré môžu byť spustené na jednom serveri.
-
-### Server
 Nižšie je uvedený príklad konfigurácie celej serverovej časti prostredníctvom nástroja Docker Compose.
 ```yaml
 version: '3.8'
@@ -75,8 +75,8 @@ volumes:
 Po spustení tohto docker-compose súboru na lokálnom počítači
 je možné pristupovať k prehľadu Kafka tém na adrese [http://localhost:9999](http://localhost:9999).
 
-
-
 ## Režime replikácie
-
+V tomto prípade sú potrebné aspoň 3 rôzne servery.
 ![deployment-diagram.jpg](images/deployment-diagram.jpg)
+
+Nižšie je ukázané, ako môže vyzerať nastavenie jedného zo serverov v trojčlennom klastri pomocou nástroja Docker Compose.
