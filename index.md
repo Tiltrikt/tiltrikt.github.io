@@ -1,2 +1,7 @@
-title: [The title of your site]
-description: [A short description of your site's purpose]
+---
+layout: default
+title: Orion Discover Service
+---
+
+# Hello world
+It's my fist project
