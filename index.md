@@ -21,7 +21,7 @@ description: Systémová príručka
     - [Security](#security-client)
     - [Tests with Grpc-Stubs](#tests-with-grpc-stubs)
 
-- [Nasadenie](/deployment/)
+- [Nasadenie](/deployment.md)
 - [Trouble-Shooting](#trouble-shooting)
 - [Example Projects](#example-projects)
 
