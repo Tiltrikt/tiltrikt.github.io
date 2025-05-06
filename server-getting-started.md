@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Začiatok práce s klientom
+title: Začiatok práce so serverom
 ---
 
 [<-- Na hlavnú stránku](index.md)
