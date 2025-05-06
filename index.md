@@ -7,24 +7,13 @@ description: Systémová príručka
 ## Table of Contents
 
 - **Server**
-      - [Nasadenie](/deployment.md)
-      - [Getting Started](#getting-started)
-      - [Configuration](#configuration)
-      - [Exception Handling](#exception-handling)
-      - [Contextual Data / Scoped Beans](#contextual-data--scoped-beans)
-      - [Testing the Service](#testing-the-service)
-      - [Server Events](#server-events)
-      - [Security](#security)
+  - [Začiatok práce s serverom](/server-getting-started.md)
 
 - **Client**
-    - [Getting Started](#getting-started-client)
-    - [Configuration](#configuration-client)
-    - [Security](#security-client)
-    - [Tests with Grpc-Stubs](#tests-with-grpc-stubs)
+  - [Začiatok práce s klientom](/client-getting-started.md)
 
-
-- [Trouble-Shooting](#trouble-shooting)
-- [Example Projects](#example-projects)
+- **Kafka**
+  - [Kafka témy](/kafka-topics.md)
 
 
 # Architecture
