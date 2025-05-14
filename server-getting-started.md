@@ -13,7 +13,7 @@ V tomto prípade sa používa jeden server brokera a jedna služba Orion, ktoré
 ### Postup sprevádzkovania systému
 1.  **Spustite základnú infraštruktúru:** Najprv pomocou `docker compose` súboru (ktorý nájdete nižšie) spustite kontajnery pre `broker` a `kafka-ui`.
     *(Príkaz: `docker compose up -d broker kafka-ui`)*
-2.  **Nakonfigurujte Kafka témy:** Pred spustením hlavnej služby je **nevyhnutné správne nakonfigurovať** potrebné Kafka témy. Podrobný postup nájdete na tomto odkaze: [Návod na konfiguráciu tém](/kafka-topics.md).
+2.  **Nakonfigurujte Kafka témy:** Pred spustením hlavnej služby je **nevyhnutné správne nakonfigurovať** potrebné Kafka témy. Podrobnosti o nastavení tém Kafka nájdete na tomto odkaze: [Návod na konfiguráciu tém](/kafka-topics.md).
 3.  **Spustite hlavnú službu:** Akonáhle máte témy nakonfigurované, môžete spustiť samotnú službu `orion-service`. *(Príkaz `docker compose up -d orion-service`)*
 
 ```yaml
