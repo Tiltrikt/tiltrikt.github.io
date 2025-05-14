@@ -10,3 +10,4 @@ description: Systémová príručka
 - [Začiatok práce s klientom](/client-getting-started.md)
 - [Kafka témy](/kafka-topics.md)
 - [Architektúra](/architecture.md)
+- [Ako používať s inými brokermi](/how-to-add-new-broker.md)

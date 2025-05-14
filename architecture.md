@@ -22,8 +22,6 @@ title: Architektúra
     └── orion-service-kafka-spring-boot-starter
 ```
 
-# Common
-
 ## Moduly systému Orion
 
 Systém Orion je rozdelený do viacerých modulov, ktoré združujú súvisiace funkcionality a zjednodušujú vývoj a údržbu. Moduly sú rozdelené na spoločné (common), klientské a serverové časti.
@@ -41,6 +39,8 @@ Modul obsahuje zdieľanú triedu (model), ktorá definuje **stav inštancie** a 
 | `DOWN`    | Inštancia nie je aktívna, nie je dostupná alebo nie je pripravená prijímať požiadavky (napr. bola zastavená, je nedostupná v sieti, nastala v nej chyba, alebo ju systém označil ako neaktívnu).                                                                                                                                                                                                                                                         |
 | `UNKNOWN` | Tento stav indikuje, že aktuálny stav inštancie nie je jednoznačne známy a systém ho momentálne overuje. Nastáva napríklad, ak inštancia po dlhšej neaktivite (ktorá presiahla čas povolený pre neaktivitu - `lease-duration`) odošle srdcový tep. Server vtedy nastaví jej stav na `UNKNOWN` a iniciuje overovací proces, aby zistil, či je inštancia skutočne aktívna, alebo či išlo len o oneskorený (už neplatný) signál o jej predchádzajúcom stave. |
 
+---
+
 ### `orion-common-event`
 Tento modul obsahuje **definície udalostí (eventov)**, ktoré sa používajú na výmenu informácií medzi komponentmi systému prostredníctvom brokera (napr. Kafka).
 
@@ -52,6 +52,8 @@ Tento modul obsahuje **definície udalostí (eventov)**, ktoré sa používajú 
 | `NodeHeartbeatEvent`          | Podobný ako `InstanceHeartbeatEvent`, ale potvrdzuje aktivitu a dostupnosť samotného serverového uzla Orion.                                                                               |
 | `RegistryUpdateEvent`         | Server ho odošle ostatným systémom alebo inštanciám, ktoré potrebujú vedieť o zmenách v registri (napr. o pridaní, odstránení alebo zmene stavu inštancií).                                |
 | `ReplicationEvent`            | Udalosť slúžiaca na replikáciu údajov registrata (informácií o inštanciách) medzi viacerými uzlami Orion servera, aby sa zabezpečila konzistencia a dostupnosť informácií v celom klastri. |
+
+---
 
 ### `orion-common-kafka`
 Tento modul obsahuje **konfiguráciu tém Kafka** a súvisiace nastavenia potrebné pre komunikáciu cez Kafka broker. Viac informácií o konfigurácii tém nájdete na tomto odkaze: [Návod na konfiguráciu tém](/kafka-topics.md).
@@ -70,6 +72,8 @@ Tento modul deklaruje **základné API (rozhranie)** pre klienta Orion systému.
 * `publishDeregistration(InstanceDeregistrationEvent event)`: Na informovanie centrálneho registra o ukončení činnosti inštancie.
 * `publishHeartbeat(InstanceHeartbeatEvent event)`: Na posielanie srdcového tepu inštancie.
 
+---
+
 ### `orion-client-domain`
 Tento modul obsahuje **hlavnú logiku klientskej aplikácie**. Je zodpovedný za správu životného cyklu inštancie v systéme (registrácia, srdcové tepy) a za distribuovanie informácií o aktívnych inštanciách po celom systéme.Okrem toho obsahuje logiku výberu lídra a replikácie údajov.
 
@@ -78,16 +82,30 @@ Tento modul obsahuje **hlavnú logiku klientskej aplikácie**. Je zodpovedný za
 * `org.springframework.cloud:spring-cloud-starter-loadbalancer` a `org.springframework.boot:spring-boot-starter-webflux` - zabezpečujú kompatibilitu s Spring Cloud Gateway
 
 **Vnútorná štruktúra (Balíky):**
-* **`job`**: Obsahuje naplánované úlohy. Pozostáva z jednej triedy `HeartbeatJob`, ktorá sa stará o **pravidelné odosielanie srdcových tepov**.
-* **`client`**: Obsahuje hlavné klientské triedy pre prístup k informáciám o službách:
-    * `OrionDiscoveryClient`: Implementuje Spring rozhranie `DiscoveryClient` pre **synchrónny** prístup.
-    * `OrionReactiveDiscoveryClient`: Implementuje Spring rozhranie `ReactiveDiscoveryClient` pre **asynchrónny, neblokujúci (reaktívny)** prístup.
-* **`repository`**: Zabezpečuje **lokálne ukladanie a správu informácií** o inštanciách služieb na strane klienta.
-* **`registration`**: Obsahuje triedy zodpovedné za **automatickú registráciu** klientskej inštancie do systému objavovania pri jej štarte.
-* **`instance`**: Obsahuje kľúčovú triedu `OrionInstance`, ktorá **reprezentuje jednu bežiacu inštanciu služby**. Uchováva jej ID, názov, stav (`UP`, `DOWN`, `UNKNOWN`) a ďalšie metadáta, pričom implementuje Spring rozhranie `Registration`.
+
+* **`job`**:  
+  Obsahuje naplánované úlohy. Pozostáva z jednej triedy `HeartbeatJob`, ktorá sa stará o **pravidelné odosielanie srdcových tepov**.
+
+* **`client`**:  
+  Obsahuje hlavné klientské triedy pre prístup k informáciám o službách:
+  - `OrionDiscoveryClient`: Implementuje Spring rozhranie `DiscoveryClient` pre **synchrónny** prístup.
+  - `OrionReactiveDiscoveryClient`: Implementuje Spring rozhranie `ReactiveDiscoveryClient` pre **asynchrónny, neblokujúci (reaktívny)** prístup.
+
+* **`repository`**:  
+  Zabezpečuje **lokálne ukladanie a správu informácií** o inštanciách služieb na strane klienta.
+
+* **`registration`**:  
+  Obsahuje triedy zodpovedné za **automatickú registráciu** klientskej inštancie do systému objavovania pri jej štarte.
+
+* **`instance`**:  
+  Obsahuje kľúčovú triedu `OrionInstance`, ktorá **reprezentuje jednu bežiacu inštanciu služby**. Uchováva jej ID, názov, stav (`UP`, `DOWN`, `UNKNOWN`) a ďalšie metadáta, pričom implementuje Spring rozhranie `Registration`.
+
+---
 
 ### `orion-client-kafka-adapter`
 Tento modul obsahuje **špecifickú implementáciu komunikácie** pre prácu s Kafka brokerom na strane klienta. Zahŕňa implementáciu Kafka konzumenta a producenta, ktoré posielajú a prijímajú udalosti definované v `orion-common-event`. Ak by sa použil iný typ brokera, vytvoril by sa nový modul adaptéra (napr. `orion-client-rabbitmq-adapter`).
+
+---
 
 ### `orion-client-kafka-spring-boot-starter`
 Tento modul funguje ako **Spring Boot Starter** pre klientskú časť systému Orion s podporou Kafky. Poskytuje **automatickú konfiguráciu**, ktorá umožňuje rýchlu a jednoduchú integráciu Orion klienta do ľubovoľnej Spring Boot aplikácie pridaním jedinej závislosti.
@@ -106,18 +124,48 @@ Tieto moduly obsahujú kód a logiku bežiacu na serverovej strane, ktorá sprav
 * `com.h2database:h2`: Samotná relačná databáza H2.
 
 **Vnútorná štruktúra (Balíky):**
-* **`statemachine`**: Містить стани та дії при переході між ними.
 
-| Stav        | Popis                                                                                                  |
-|-------------|--------------------------------------------------------------------------------------------------------|
-| `LEADER`    | В цьому стані вузол виконує всю роботу та поширює інформацію свого рєстра для реплікації данних        |
-| `CANDIDATE` | Коли лідер пестав працювати інші вузли через певний випадково вибраний час стають кандидатами в лідера |
-| `FOLLOWER`  | В цьому стані вузол реплікує дані від лідера та слідкує за його станом                                 |
-* **`statemachine`**: Містить стани та дії при переході між ними.
+* **`statemachine`**: Obsahuje **stavy a udalosti** používané v stavovom automate riadiacom správanie uzlov v distribuovanom systéme. Stavy, v ktorých sa uzol môže nachádzať, sú uvedené nižšie:
 
+| Stav        | Popis                                                                                            |
+|-------------|--------------------------------------------------------------------------------------------------|
+| `LEADER`    | Uzol v tomto stave vykonáva riadiace operácie a zabezpečuje replikáciu dát ostatným uzlom.       |
+| `CANDIDATE` | Keď líder prestane odpovedať, ostatné uzly po náhodne zvolenom čase prechádzajú do tohto stavu, aby sa mohli stať novým lídrom.                                                                   |
+| `FOLLOWER`  | Uzol, ktorý iba sleduje lídra a prijíma od neho replikované informácie.                          |
+
+<br>
+
+* **`job`**: Obsahuje **naplánované úlohy**, ktoré vykonávajú dôležité činnosti v systéme v pravidelných intervaloch. Obsahuje nasledujúce triedy:
+
+  * **`LeaderHeartbeatJob`**: Pravidelne odosiela srdcový tep od aktuálneho lídra ostatným uzlom, aby potvrdil, že je stále aktívny.
+  * **`LeaseExpirationCheckJob`**: Kontroluje, či registrácie služieb (inštancií) nevypršali. Ak áno, dané inštancie sa odstránia zo systému.
+  * **`LeaderHeartbeatJobManager`** a **`LeaseExpirationCheckJobManager`**: Zabezpečujú spustenie a zastavenie plánovaných úloh v závislosti od stavu uzla. Napríklad LeaderHeartbeatJob sa spustí iba vtedy, keď uzol prejde do stavu líder.
+  
+<br>
+
+* **`model`**: Obsahuje **dátové modely**, ktoré reprezentujú aktuálny stav jednotlivých uzlov a služieb v systéme. Obsahuje nasledujúce triedy:
+
+  * **`InstanceModel`**: JPA entita reprezentujúca jednu inštanciu služby. Obsahuje údaje ako ID služby, host, port, metadáta, stav, čas expirácie atď.
+  * **`OrionServiceNode`**: Model reprezentujúci konkrétny uzol systému. Obsahuje identifikátor, informáciu o tom, či je uzol lídrom a aktuálne číslo volebného obdobia.
+
+<br>
+
+* **`task`**: Obsahuje **časové úlohy súvisiace s voľbou lídra** v rámci Raft algoritmu. Obsahuje nasledujúce triedy:
+
+  * **`ElectionTimeoutTask`**: Časovaná úloha, ktorá sa spustí po náhodne zvolenom čase. Po uplynutí času vyšle do stavového automatu udalosť `ELECTION_TIMEOUT`, čím sa spustí proces voľby nového lídra.
+  * **`ElectionTimeoutTaskManager`**: Správca pre `ElectionTimeoutTask`. Jeho úlohou je reštartovať časovač, ktorý spustí úlohu `ElectionTimeoutTask` s novým náhodným oneskorením. Tým sa zabezpečí, že každý uzol čaká odlišný čas predtým, než sa pokúsi stať kandidátom.
+
+<br>
+
+* **`handler`**: Obsahuje **hlavnú logiku správania uzlov** v závislosti od ich stavu (`FOLLOWER`, `LEADER`). Implementuje správanie požadované pre jednotlivé fázy Raft algoritmu.
+
+
+---
 
 ### `orion-server-kafka-adapter`
-Tento modul obsahuje **špecifickú implementáciu komunikácie** pre prácu s **Kafka brokerom** na strane servera. Jeho úlohou je prijímať klientské udalosti** (ako registrácie, srdcové tepy, odhlásenia) z Kafky a odosielať serverové udalosti (ako aktualizácie registry, udalosti voľby lídra, replikačné udalosti) do Kafky. Predstavuje pre serverovú logiku adaptér pre Kafka komunikáciu. Ak by sa použil iný typ brokera, vytvoril by sa nový modul adaptéra (napr. orion-server-rabbitmq-adapter).
+Tento modul obsahuje **špecifickú implementáciu komunikácie** pre prácu s **Kafka brokerom** na strane servera. Jeho úlohou je prijímať klientské udalosti (ako registrácie, srdcové tepy, odhlásenia) z Kafky a odosielať serverové udalosti (ako aktualizácie registry, udalosti voľby lídra, replikačné udalosti) do Kafky. Predstavuje pre serverovú logiku adaptér pre Kafka komunikáciu. Ak by sa použil iný typ brokera, vytvoril by sa nový modul adaptéra (napr. orion-server-rabbitmq-adapter).
+
+---
 
 ### `orion-server-spring-boot-starter`
 Tento modul funguje ako **Spring Boot Starter** pre serverovú časť systému Orion s podporou Kafky. Poskytuje **automatickú konfiguráciu**, ktorá umožňuje rýchlo a jednoducho nastaviť a spustiť Orion server, ako súčasť Spring Boot aplikácie pridaním jedinej závislosti. Zjednodušuje konfiguráciu Kafka konzumentov, producentov a ostatných častí.
