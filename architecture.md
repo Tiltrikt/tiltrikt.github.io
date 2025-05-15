@@ -22,6 +22,9 @@ title: Architektúra
     └── orion-service-kafka-spring-boot-starter
 ```
 
+## Vnútorné závislosti
+![internal-dependency-diagram.png](images/internal-dependency-diagram.png)
+
 ## Moduly systému Orion
 
 Systém Orion je rozdelený do viacerých modulov, ktoré združujú súvisiace funkcionality a zjednodušujú vývoj a údržbu. Moduly sú rozdelené na spoločné (common), klientské a serverové časti.
