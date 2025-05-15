@@ -85,4 +85,22 @@ V tomto prípade sú potrebné aspoň 3 rôzne servery. Každý pár Orion a Kaf
 
 ![deployment-diagram.jpg](images/deployment-diagram.jpg)
 
+Ak chcete použiť tento režim, nahraďte nasledujúci fragment z vyššie uvedeného súboru `docker.compose`:
+```yaml
+  orion-service:
+    ...
+    environment:
+      # Zoznam Kafka brokerov, ku ktorým sa služba pripája (oddelené čiarkou)
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: broker1:29092,broker2:29092,broker3:29092
+
+      # Celkový počet inštancií služby Orion v klastri
+      ORION_SERVICE_CLUSTER_SIZE: 3
+
+      # Identifikátor tohto konkrétneho uzla (číslo od 1 po ORION_SERVICE_CLUSTER_SIZE)
+      ORION_SERVICE_NODE_ID: 1
+      ...
+```
+
+Nezabudnite tiež nakonfigurovať komunikáciu medzi samotnými uzlami Kafka.
+
 [//]: # (Nižšie je ukázané, ako môže vyzerať nastavenie jedného zo serverov v trojčlennom klastri pomocou nástroja Docker Compose.)

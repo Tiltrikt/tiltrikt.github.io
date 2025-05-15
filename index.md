@@ -11,3 +11,4 @@ description: Systémová príručka
 - [Kafka témy](/kafka-topics.md)
 - [Architektúra](/architecture.md)
 - [Ako používať s inými brokermi](/how-to-add-new-broker.md)
+- [Gradle úlohy](/gradle-tasks.md)
