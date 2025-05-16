@@ -32,8 +32,8 @@ V súbore `settings.gradle` sa nachádza zoznam všetkých modulov, ktoré sú s
 1. **Vytvorte nový modul**  
    V koreňovom adresári projektu vytvorte nový modul s názvom `orion-common-<názov_brokera>`.
 
-   2. **Definujte témy a ich konfiguráciu**  
-      V tomto module definujte názvy tém a ich konfiguráciu špecifickú pre daný broker. Môžete vytvoriť triedu `BrokerTopicConfiguration`, ktorá bude obsahovať konštanty a konfigurácie tém podobne ako `KafkaTopicConfiguration`. Podrobnosti o nastavení tém na príklade Kafky nájdete na tomto odkaze   : [Návod na konfiguráciu tém](/kafka-topics.md).
+2. **Definujte témy a ich konfiguráciu**  
+   V tomto module definujte názvy tém a ich konfiguráciu špecifickú pre daný broker. Môžete vytvoriť triedu `BrokerTopicConfiguration`, ktorá bude obsahovať konštanty a konfigurácie tém podobne ako `KafkaTopicConfiguration`. Podrobnosti o nastavení tém na príklade Kafky nájdete na tomto odkaze   : [Návod na konfiguráciu tém](/kafka-topics.md).
 
 ---
 
@@ -74,7 +74,7 @@ V súbore `settings.gradle` sa nachádza zoznam všetkých modulov, ktoré sú s
 3. **Implementujte rozhrania** `CandidateRequestPublisher`, `HeartbeatErrorPublisher`, `LeaderHeartbeatPublisher`, `RegistryUpdatePublisher`, `ReplicationRegistryUpdatePublisher`, `VotePublisher`.
 
 4. **Implementujte príslušné konzumentské triedy na strane klienta**<br>
-   Klient musí vedieť prijať správy, ktoré server posiela cez implementované publishery.
+   Klient musí vedieť prijímať správy (prostredníctvom svojich konzumentov), ktoré server odosiela.
 
 5. **Implementujte konzumentské triedy pre spracovanie udalostí z**:
    * `CandidateRequestPublisher`

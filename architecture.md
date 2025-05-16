@@ -149,15 +149,15 @@ Tento modul definuje **základné rozhrania a udalosti pre serverovú časť** O
 * **`job`**: Obsahuje **naplánované úlohy**, ktoré vykonávajú dôležité činnosti v systéme v pravidelných intervaloch. Obsahuje nasledujúce triedy:
 
   * **`LeaderHeartbeatJob`**: Pravidelne odosiela srdcový tep od aktuálneho lídra ostatným uzlom, aby potvrdil, že je stále aktívny.
-  * **`LeaseExpirationCheckJob`**: Kontroluje, či registrácie služieb (inštancií) nevypršali. Ak áno, dané inštancie sa odstránia zo systému.
-  * **`LeaderHeartbeatJobManager`** a **`LeaseExpirationCheckJobManager`**: Zabezpečujú spustenie a zastavenie plánovaných úloh v závislosti od stavu uzla. Napríklad LeaderHeartbeatJob sa spustí iba vtedy, keď uzol prejde do stavu líder.
+  * **`LeaseExpirationCheckJob`**: Kontroluje, či registrácie inštancií nevypršali. Ak áno, vykonajú sa operácie súvisiace s odpojením daných inštancií.
+  * **`LeaderHeartbeatJobManager`** a **`LeaseExpirationCheckJobManager`**: Zabezpečujú spustenie a zastavenie plánovaných úloh podľa aktuálneho stavu uzla. Napríklad `LeaderHeartbeatJob` by sa mal vykonávať len počas toho, ako je uzol lídrom.
   
 <br>
 
 * **`model`**: Obsahuje **dátové modely**, ktoré reprezentujú aktuálny stav jednotlivých uzlov a služieb v systéme. Obsahuje nasledujúce triedy:
 
-  * **`InstanceModel`**: JPA entita reprezentujúca jednu inštanciu služby. Obsahuje údaje ako ID služby, host, port, metadáta, stav, čas expirácie atď.
-  * **`OrionServiceNode`**: Model reprezentujúci konkrétny uzol systému. Obsahuje identifikátor, informáciu o tom, či je uzol lídrom a aktuálne číslo volebného obdobia.
+  * **`InstanceModel`**: JPA entita reprezentujúca jednu inštanciu.
+  * **`OrionServiceNode`**: JPA entita reprezentujúca konkrétny uzol systému. Obsahuje identifikátor, informáciu o tom, či je uzol lídrom a aktuálne číslo volebného obdobia.
 
 <br>
 
@@ -174,7 +174,7 @@ Tento modul definuje **základné rozhrania a udalosti pre serverovú časť** O
 ---
 
 ### `orion-service-kafka-adapter`
-Tento modul obsahuje **špecifickú implementáciu komunikácie** pre prácu s **Kafka brokerom** na strane servera. Jeho úlohou je prijímať klientské udalosti (ako registrácie, srdcové tepy, odhlásenia) z Kafky a odosielať serverové udalosti (ako aktualizácie registry, udalosti voľby lídra, replikačné udalosti) do Kafky. Predstavuje pre serverovú logiku adaptér pre Kafka komunikáciu. Ak by sa použil iný typ brokera, vytvoril by sa nový modul adaptéra (napr. orion-server-rabbitmq-adapter).
+Tento modul obsahuje **špecifickú implementáciu komunikácie** pre prácu s **Kafka brokerom** na strane servera. Jeho úlohou je prijímať klientské udalosti (ako registrácie, srdcové tepy, odhlásenia) z Kafky a odosielať serverové udalosti (ako aktualizácie registry, udalosti voľby lídra, replikačné udalosti) do Kafky. Predstavuje pre serverovú logiku adaptér pre Kafka komunikáciu. Ak by sa použil iný typ brokera, vytvoril by sa nový modul adaptéra (napr. orion-server-rabbitmq-adapter). Podrobnosti o vytvorení adaptéra nájdete na tomto odkaze: [Návod na integráciu iného brokera](/how-to-add-new-broker.md).
 
 ---
 
