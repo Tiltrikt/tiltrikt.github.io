@@ -6,7 +6,7 @@ title: Kafka témy
 [<-- Na hlavnú stránku](index.md)
 
 ### 1. instance-event
-Do tejto témy jednotlivé mikroservisy automaticky posielajú informácie o svojom aktuálnom stave (napr. registrácia, "heartbeat", ukončenie činnosti).
+Do tejto témy jednotlivé mikroslužby automaticky posielajú informácie o svojom aktuálnom stave (napr. registrácia, srdcový tep, ukončenie činnosti).
 
 | Názov poľa konfigurácie        | Hodnota   |
 |----------------------|-----------|
@@ -30,9 +30,9 @@ Táto téma obsahuje aktuálne údaje centrálneho registra. Služba Orion ju na
 | `DELETE_RETENTION_MS_CONFIG`    | `30000`   |
 
 ### 3. heartbeat-error
-Do tejto témy posiela správy služba orions-service.
-Tieto správy informujú o problémoch, ktoré nastali pri spracovaní požiadaviek pochádzajúcich z mikroservisov.
-Všetky mikroservisy fungujúce ako objavovacie inštancie túto tému monitorujú (odoberajú), aby mohli automaticky riešiť problémy.
+Do tejto témy posiela správy služba `orion-service`.
+Tieto správy informujú o problémoch, ktoré nastali pri spracovaní požiadaviek pochádzajúcich z mikroslužieb.
+Všetky mikroslužby fungujúce ako objavovacie inštancie túto tému monitorujú (odoberajú), aby mohli automaticky riešiť problémy.
 Okrem toho môže túto tému použiť administrátor systému na identifikáciu a riešenie problémov.
 
 | Názov poľa konfigurácie        | Hodnota  |
@@ -40,7 +40,7 @@ Okrem toho môže túto tému použiť administrátor systému na identifikáciu
 | `CLEANUP_POLICY_CONFIG`     | `delete` |
 
 ### 4. node-event
-Táto téma je veľmi podobná téme `instance-event`, ale obsahuje informácie o aktuálnom stave serverov Orion. Používa sa na výber lídra a monitorovanie stavu. *Poznámka: táto téma sa vyžaduje aj v jednoduchom režime.*
+Táto téma je veľmi podobná téme `instance-event`, ale obsahuje informácie o aktuálnom stave serverov Orion. Používa sa na výber lídra a monitorovanie jeho stavu. *Poznámka: táto téma sa vyžaduje aj v jednoduchom režime.*
 
 | Názov poľa konfigurácie        | Hodnota  |
 |----------------------|----------|

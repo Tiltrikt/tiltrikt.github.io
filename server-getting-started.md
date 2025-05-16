@@ -10,7 +10,7 @@ Vyhľadávacia služba Orion môže byť nasadená v jednoduchom režime alebo v
 ## Jednoduchý režim
 V tomto prípade sa používa jeden server brokera a jedna služba Orion, ktoré môžu byť spustené na jednom serveri.
 
-### Postup sprevádzkovania systému
+### Postup
 1.  **Spustite základnú infraštruktúru:** Najprv pomocou `docker compose` súboru (ktorý nájdete nižšie) spustite kontajnery pre `broker` a `kafka-ui`.
     *(Príkaz: `docker compose up -d broker kafka-ui`)*
 2.  **Nakonfigurujte Kafka témy:** Pred spustením hlavnej služby je **nevyhnutné správne nakonfigurovať** potrebné Kafka témy. Podrobnosti o nastavení tém Kafka nájdete na tomto odkaze: [Návod na konfiguráciu tém](/kafka-topics.md).
@@ -44,7 +44,6 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
-      # Replace CLUSTER_ID with a unique base64 UUID using "bin/kafka-storage.sh random-uuid"
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
 
   kafka-ui:

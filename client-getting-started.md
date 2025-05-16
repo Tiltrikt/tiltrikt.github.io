@@ -6,7 +6,7 @@ title: Začiatok práce s klientom
 [<-- Na hlavnú stránku](index.md)
 
 ### Spôsob použitia
-Do mikroservisu je potrebné pripojiť nasledujúce závislosti:
+Do mikroslužby je potrebné pripojiť nasledujúce závislosti:
 ```groovy
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
@@ -33,7 +33,7 @@ dependencyResolutionManagement {
 ```
 
 ### Príklad konfigurácie klienta objavovacej služby
-**Klient vyhľadávacej služby** - inštancia, ktora používa údaje registra
+**Klient vyhľadávacej služby** - inštancia, ktora používa údaje registra.
 ```yaml
 server:
   port: 8083
@@ -49,7 +49,7 @@ orion:
 ```
 
 ### Príklad konfigurácie objavovacej inštancie
-**Objavovacia inštancia (Discovery Instance)** - inštancia, ktorá aktívne odosiela informácie o svojom stave, aby mohla byť objavená a monitorovaná.
+**Objavovacia inštancia** - inštancia, ktorá aktívne odosiela informácie o svojom stave, aby mohla byť objavená a monitorovaná.
 ```yaml
 server:
   port: 8084
@@ -68,12 +68,12 @@ orion:
 
 ### Zoznam všetkých parametrov pre konfiguráciu
 
-| Názov                                  | Popis                                                                                                                                               |
-|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `orion.client.fetch-registry`          | Určuje, či má klient Orion automaticky načítať informácie registra pri štarte.                                                                      |
-| `orion.client.heartbeat-rate-sec`      | Interval v sekundách, v ktorom klient posiela správy "heartbeat" serveru Orion. Nesmie byť kratší ako `lease-duration-sec`.                         |
-| `orion.client.kafka.bootstrap-servers` | Adresa Kafka brokera/brokerov, ku ktorým sa klient Orion pripája pre publikovanie a odoberanie správ.                                               |
-| `orion.client.kafka.trusted-packages`  | Zoznam názvov balíkov oddelených čiarkou, ktoré Kafka klient považuje za dôveryhodné pre deserializáciu.                                            |
-| `orion.client.lease-duration-sec`      | Trvanie v sekundách, počas ktorého je "lease" platný, než bude služba odstránená z registra. Musí byť väčšie ako `orion.client.heartbeat-rate-sec`. |
-| `orion.client.self-registration`       | Určuje, či sa má klient Orion automaticky zaregistrovať na serveri Orion pri štarte.                                                                |
-| `orion.client.kafka.group-id`          | Každý klient musí mať rozdielne group ID, aby získal celý register.                                                                                 |
+| Názov                                  | Popis                                                                                                                                                         |
+|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `orion.client.fetch-registry`          | Určuje, či má klient Orion automaticky načítať informácie registra pri štarte.                                                                                |
+| `orion.client.heartbeat-rate-sec`      | Interval v sekundách, v ktorom klient posiela správy "srdcový tep" serveru Orion. Nesmie byť kratší ako `lease-duration-sec`.                                 |
+| `orion.client.kafka.bootstrap-servers` | Adresa Kafka brokera/brokerov, ku ktorým sa klient Orion pripája pre publikovanie a odoberanie správ.                                                         |
+| `orion.client.kafka.trusted-packages`  | Zoznam názvov balíkov oddelených čiarkou, ktoré Kafka klient považuje za dôveryhodné pre deserializáciu.                                                      |
+| `orion.client.lease-duration-sec`      | Trvanie v sekundách, počas ktorého sa služba považuje za dostupnú od posledného prijatého srdcový tepu. Musí byť väčšie ako `orion.client.heartbeat-rate-sec`. |
+| `orion.client.self-registration`       | Určuje, či sa má klient Orion automaticky zaregistrovať na serveri Orion pri štarte.                                                                          |
+| `orion.client.kafka.group-id`          | Každý klient musí mať rozdielne group ID, aby získal celý register.                                                                                           |
