@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Architektúra
+title: Štruktúra
 ---
 
 [<-- Na hlavnú stránku](index.md)
